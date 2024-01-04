@@ -23,25 +23,56 @@ const choice = {
     img: 'https://img.ws.mms.shopee.com.my/d8839ae8a3b1c2d94d8c4a9025f44f33',
   },
 };
+
+const comResult = {
+  win: 'lose',
+  lose: 'win',
+  tie: 'tie',
+};
+
 function App() {
   const [userSelect, setUserSelect] = useState(null);
   const [computerSelect, setComputerSelect] = useState(null);
+  const [result, setResult] = useState('');
+
   const play = (userChoice) => {
     setUserSelect(choice[userChoice]);
     let computerChoice = randomChoice();
     setComputerSelect(computerChoice);
+    setResult(judgement(choice[userChoice], computerChoice));
   };
+
   const randomChoice = () => {
     let itemArray = Object.keys(choice); // 객체의 키값만 뽑아서 array로 만들어주는 함수
     let randomItem = Math.floor(Math.random() * itemArray.length);
     let final = itemArray[randomItem];
     return choice[final];
   };
+
+  const judgement = (user, computer) => {
+    // user == computer tie
+    // user == rock, computer == scissors user win
+    // user == rock, computer == paper user lose
+    // user == scissors, computer == paper user win
+    // user == scissors, computer == rock user lose
+    // user == paper, computer == rock user win
+    // user == paper, computer == scissors user lose
+    if (user.name == computer.name) {
+      return 'tie';
+    } else if (user.name == 'Rock') {
+      return computer.name == 'Scissors' ? 'win' : 'lose';
+    } else if (user.name == 'Scissors') {
+      return computer.name == 'Paper' ? 'win' : 'lose';
+    } else if (user.name == 'Paper') {
+      return computer.name == 'Rock' ? 'win' : 'lose';
+    }
+  };
+
   return (
     <div>
       <div className='main'>
-        <Box title='You' item={userSelect} />
-        <Box title='Computer' item={computerSelect} />
+        <Box title='You' item={userSelect} result={result} />
+        <Box title='Computer' item={computerSelect} result={result} />
       </div>
       <div className='main'>
         <button onClick={() => play('scissors')}>가위</button>
