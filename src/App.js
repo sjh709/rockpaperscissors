@@ -24,12 +24,6 @@ const choice = {
   },
 };
 
-const comResult = {
-  win: 'lose',
-  lose: 'win',
-  tie: 'tie',
-};
-
 function App() {
   const [userSelect, setUserSelect] = useState(null);
   const [computerSelect, setComputerSelect] = useState(null);
