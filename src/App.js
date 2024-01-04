@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import Box from './component/Box';
 
@@ -8,17 +9,35 @@ import Box from './component/Box';
 // 5. 3 4 의 결과를 가지고 누가 이겼는지 승패를 따진다.
 // 6. 승패 결과에 따라 테두리 색이 바뀐다. (이기면-초록, 지면-빨강, 비기면-검은색)
 
+const choice = {
+  rock: {
+    name: 'Rock',
+    img: 'https://nationaltoday.com/wp-content/uploads/2021/08/National-Pet-Rock-Day.jpg',
+  },
+  scissors: {
+    name: 'Scissors',
+    img: 'https://www.sliceproducts.com/cdn/shop/products/10544_42f8515e-f918-4b7d-b1e8-d32ebaff0955.jpg?v=1660659479&width=1946',
+  },
+  paper: {
+    name: 'Paper',
+    img: 'https://img.ws.mms.shopee.com.my/d8839ae8a3b1c2d94d8c4a9025f44f33',
+  },
+};
 function App() {
+  const [userSelect, setUserSelect] = useState(null);
+  const play = (userChoice) => {
+    setUserSelect(choice[userChoice]);
+  };
   return (
     <div>
       <div className='main'>
-        <Box title='You' />
-        <Box title='Computer' />
+        <Box title='You' item={userSelect} />
+        {/* <Box title='Computer' /> */}
       </div>
       <div className='main'>
-        <button>가위</button>
-        <button>바위</button>
-        <button>보</button>
+        <button onClick={() => play('scissors')}>가위</button>
+        <button onClick={() => play('rock')}>바위</button>
+        <button onClick={() => play('paper')}>보</button>
       </div>
     </div>
   );
