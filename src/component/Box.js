@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Box = (props) => {
-  console.log(props.item);
   return (
     <div className='box'>
       <h1>{props.title}</h1>
